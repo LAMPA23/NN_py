@@ -3,7 +3,7 @@ import openpyxl
 import math
 
 
-def apply_centroids(path_to_xlsx, workbook, sheet_name, centroids, noise_matrix, corect_ans):
+def check_centroids(path_to_xlsx, workbook, sheet_name, centroids, noise_matrix, corect_ans):
     
     # Create void matrix
     Euclidean_distance = np.zeros((675,3))
@@ -38,7 +38,7 @@ def apply_centroids(path_to_xlsx, workbook, sheet_name, centroids, noise_matrix,
     # Create new sheet
     sheet = workbook.create_sheet(title=sheet_name) 
 
-    # Centring a text and add value in cell)
+    # Centring a text and add value in cell
     for row in range(675):
         for column in range(6):
             if column < 3:
