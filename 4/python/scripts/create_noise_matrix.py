@@ -2,10 +2,9 @@ import numpy as np
 import openpyxl
 
 
-def create_noise_matrix(path_to_xlsx, symbols):
+def create_noise_matrix(path_to_xlsx, workbook, symbols):
 
     # Excel preparation
-    workbook = openpyxl.Workbook()
     sheet = workbook.create_sheet(title='Зашумлена матриця')
     
 
@@ -31,7 +30,7 @@ def create_noise_matrix(path_to_xlsx, symbols):
             rows = cnt_1 * 28 + cnt_2 + 1, cnt_1 * 28 + cnt_2 + 226, cnt_1 * 28 + cnt_2 + 451
             for row in rows:
                 for column in inverting_vector:
-                    M[row, column] = 1 if M[row, column] == 0 else 0
+                    M[row, column] = 1 if M[row, column] == -1 else -1
                     for column in inverting_vector:
                         sheet.cell(row=row+1, column=column+1, value=M[row, column]).fill = openpyxl.styles.PatternFill(start_color="FF0000", end_color="FF0000", fill_type="solid")
                 
