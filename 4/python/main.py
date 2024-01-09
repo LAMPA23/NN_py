@@ -8,12 +8,13 @@ import os
 # My python scripts
 from scripts.get_symbols import get_symbols
 from scripts.create_noise_matrix import create_noise_matrix
-from scripts.get_center import get_centers
+from scripts.create_noise_matrix import create_target_ans_for_noise_matrix
+from scripts.get_math_centroids import get_math_centroids
 
 
 # Excel files
-path_input_xlsx = 'xlsx\input.xlsx' 
-path_output_xlsx = 'xlsx\output.xlsx'
+path_input_xlsx = 'xlsx\input.xlsx' # (input.xlsx)
+path_output_xlsx = 'xlsx\output.xlsx' # (output.xlsx)
 
 
 # Delite old output file
@@ -30,16 +31,24 @@ workbook = openpyxl.Workbook()
 # Вхідні дані в input.xlsx
 symbols = get_symbols(path_input_xlsx)
 
+
 # Створюю зашумлену матрицю з векторів символів
-# Результати в "Зашумлена матриця"
+# Результати в "Зашумлена матриця" (output.xlsx)
 noise_matrix = create_noise_matrix(path_output_xlsx, workbook, symbols) 
 
+
+# Створюю матрицю з класифікацією векторів в зашумленій матриці 
+# Результати в "Правильна класифікація" (output.xlsx)
+target_matrix = create_target_ans_for_noise_matrix(path_output_xlsx, workbook)
+
+
 # Обраховую центроїди метеметично
-# Результати в "Центроїди"
-math_centers = get_centers(path_output_xlsx, workbook, noise_matrix)
+# Результати в "Центроїди" (output.xlsx)
+math_centroids = get_math_centroids(path_output_xlsx, workbook, noise_matrix)
   
+
 # Засточовую математично обчислені центроїди для класифікації зашумленої матриці 
-# Результати в "Класиівкація математичними центроїдами"
+# Результати в "Класиівкація математичними центроїдами" (output.xlsx)
 
 
 
