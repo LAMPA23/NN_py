@@ -49,7 +49,7 @@ def create_noise_matrix(path_to_xlsx, workbook, symbols):
 def create_target_ans_for_noise_matrix(path_to_xlsx, workbook):
     
     # Create target data like matrix
-    target_data = np.zeros((675,28))
+    target_data = np.zeros((675,3))
     target_data[0:225,0] = 1
     target_data[225:450,1] = 1
     target_data[450:675,2] = 1
@@ -61,7 +61,7 @@ def create_target_ans_for_noise_matrix(path_to_xlsx, workbook):
 
     # Centring a text in cell
     for row in range(676):
-        for column in range(28):
+        for column in range(3):
             sheet.cell(row=row+1, column=column+1).alignment = openpyxl.styles.Alignment(horizontal='center', vertical='center')
 
 
@@ -78,7 +78,7 @@ def create_target_ans_for_noise_matrix(path_to_xlsx, workbook):
         sheet.cell(row=row+2, column=3, value=target_data[row,2]).fill = openpyxl.styles.PatternFill(start_color="0000FF", end_color="0000FF", fill_type="solid")
 
 
-    # Return noise matrix   
+    # Save data to Excel   
     workbook.save(path_to_xlsx) 
 
     return target_data

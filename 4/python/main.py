@@ -10,6 +10,7 @@ from scripts.get_symbols import get_symbols
 from scripts.create_noise_matrix import create_noise_matrix
 from scripts.create_noise_matrix import create_target_ans_for_noise_matrix
 from scripts.get_math_centroids import get_math_centroids
+from scripts.apply_centroids import apply_centroids
 
 
 # Excel files
@@ -48,8 +49,8 @@ math_centroids = get_math_centroids(path_output_xlsx, workbook, noise_matrix)
   
 
 # Засточовую математично обчислені центроїди для класифікації зашумленої матриці 
-# Результати в "Класиівкація математичними центроїдами" (output.xlsx)
-
+# Результати в "Класиівкація мат. центр." (output.xlsx)
+math_ans = apply_centroids(path_output_xlsx, workbook, 'Класиівкація мат. центр.', math_centroids, noise_matrix, target_matrix)
 
 
 
