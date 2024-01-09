@@ -1,7 +1,12 @@
 import numpy as np
 
-a = np.array(range(5))
-b = a + 2
+# Ваша матриця
+my_matrix = np.random.rand(30,10)
 
-print(a == b)
+# Перемішування індексів рядків
+shuffled_indices = np.random.permutation(my_matrix.shape[0])
 
+# Застосування перемішаних індексів до матриці
+shuffled_matrix = my_matrix[shuffled_indices, :]
+
+print(shuffled_indices)

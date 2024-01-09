@@ -2,10 +2,10 @@ import numpy as np
 import openpyxl
 
 
-def create_noise_matrix(path_to_xlsx, workbook, symbols):
+def create_noise_matrix(path_to_xlsx, workbook, sheet_name, symbols):
 
     # Excel preparation
-    sheet = workbook.create_sheet(title='Зашумлена матриця')
+    sheet = workbook.create_sheet(title=sheet_name)
     
 
     # Creatin training matrix 675x28
@@ -44,9 +44,7 @@ def create_noise_matrix(path_to_xlsx, workbook, symbols):
 
 
 
-
-
-def create_target_ans_for_noise_matrix(path_to_xlsx, workbook):
+def create_target_ans_for_noise_matrix(path_to_xlsx, workbook, sheet_name):
     
     # Create target data like matrix
     target_data = np.zeros((675,3))
@@ -56,7 +54,7 @@ def create_target_ans_for_noise_matrix(path_to_xlsx, workbook):
 
     
     # Create new sheet
-    sheet = workbook.create_sheet(title='Правильна класифікація') 
+    sheet = workbook.create_sheet(title=sheet_name) 
 
 
     # Centring a text in cell

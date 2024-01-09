@@ -15,7 +15,7 @@ def get_math_centroid(noise_matrix_one_symbol):
 
 
 # Get centers of all symbols lile tuple
-def get_math_centroids(path_to_xlsx, workbook, noise_matrix_all):
+def get_math_centroids(path_to_xlsx, workbook, sheet_name, noise_matrix_all):
     
     # Get enters of symbols
     center_of_symbol_1 = get_math_centroid(noise_matrix_all[0:225,:])
@@ -24,7 +24,7 @@ def get_math_centroids(path_to_xlsx, workbook, noise_matrix_all):
 
 
     # Create new sheet
-    sheet = workbook.create_sheet(title='Центроїди (математично обрах.)')
+    sheet = workbook.create_sheet(title=sheet_name)
 
 
     # Centring a text in cell
