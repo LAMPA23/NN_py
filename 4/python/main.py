@@ -12,7 +12,8 @@ from scripts.create_noise_matrix import create_target_ans_for_noise_matrix
 from scripts.create_mixed_data import create_mixed_data
 from scripts.get_math_centroids import get_math_centroids
 from scripts.check_centroids import check_centroids
-from scripts.SOM import create_SOM
+from scripts.KM import create_KM
+from scripts.KL import apply_KL
 
 
 # Excel files
@@ -47,12 +48,12 @@ target_matrix = create_target_ans_for_noise_matrix(path_output_xlsx, workbook, '
 
 # Обраховую центроїди метеметично
 # Результати в "Центроїди (математично обрах.)" (output.xlsx)
-math_centroids = get_math_centroids(path_output_xlsx, workbook, 'Центроїди (математично обрах.)', noise_matrix)
+#math_centroids = get_math_centroids(path_output_xlsx, workbook, 'Центроїди (математично обрах.)', noise_matrix)
   
 
 # Засточовую математично обчислені центроїди для класифікації зашумленої матриці 
 # Результати в "Класифівкація мат. центр." (output.xlsx)
-math_ans = check_centroids(path_output_xlsx, workbook, 'Класифівкація мат. центр.', math_centroids, noise_matrix, target_matrix)
+#check_centroids(path_output_xlsx, workbook, 'Класифівкація мат. центр.', math_centroids, noise_matrix, target_matrix)
 
 
 # Перемішую вектори в середині зашумленої матриці
@@ -63,16 +64,22 @@ mixed_noise_matrix, mixed_target_data = create_mixed_data(path_output_xlsx, work
 
 # Засточовую математично обчислені центроїди для класифікації перемішаної зашумленої матриці 
 # Результати в "Класифік. перем. мат.центр." (output.xlsx)
-math_ans = check_centroids(path_output_xlsx, workbook, 'Класифік. перем. мат.центр.', math_centroids, mixed_noise_matrix, mixed_target_data)
+#check_centroids(path_output_xlsx, workbook, 'Класифік. перем. мат.центр.', math_centroids, mixed_noise_matrix, mixed_target_data)
 
 
 # Створюю НМ КК та використовую її для визначення координат центроїдів
 # Результати в "Центроїди (НМ КК)" (output.xlsx)
-som_map = create_SOM(path_output_xlsx, workbook, 'Центроїди (НМ КК)', mixed_noise_matrix)
+som_map = create_KM(path_output_xlsx, workbook, 'Центроїди (НМ КК)', mixed_noise_matrix)
 
 
 # Засточовую центроїди отримані за допомогою НМ КК для класифікації перемішаної зашумленої матриці 
 # Результати в "Класифівкація НМ. центр." (output.xlsx)
-math_ans = check_centroids(path_output_xlsx, workbook, 'Класифівкація НМ. центр.', som_map, mixed_noise_matrix, mixed_target_data)
+check_centroids(path_output_xlsx, workbook, 'Класифівкація НМ. центр.', som_map, mixed_noise_matrix, mixed_target_data)
+
+
+
+# Застосування трьох конкурентних шарів Кохонена для класифікації векторів
+# Результати в "Результ. клсифікац. НМ ШК" (output.xlsx)
+apply_KL(path_output_xlsx, workbook, 'Результ. клсифікац. НМ ШК', mixed_noise_matrix, som_map, mixed_target_data)
 
 # ----------------------------  Using my functions ---------- END
