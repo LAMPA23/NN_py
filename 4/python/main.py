@@ -31,7 +31,7 @@ os.system(f'del "{path_output_xlsx}"')
 workbook = openpyxl.Workbook()
 
 
-# ----------------------------  Using my functions
+# ----------------------------  MAIN  ---------- START
 
 # Отримую вектори символів
 # Вхідні дані в input.xlsx
@@ -88,11 +88,7 @@ for cnt in range(100):
         print('Good')
         plot_interpolated_vectors(np.concatenate((math_centroids[0],math_centroids[1],math_centroids[2])), np.concatenate((som_map[0],som_map[1],som_map[2])))
         sys.exit()
-    else:
-        del workbook.worksheets[6]
-        del workbook.worksheets[7]
-        del workbook.worksheets[8]
 
 print('Fale')      
         
-# ----------------------------  Using my functions ---------- END
+# ----------------------------  MAIN  ---------- END

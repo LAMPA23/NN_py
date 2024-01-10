@@ -4,7 +4,7 @@ import openpyxl
 
 def create_KM(path_to_xlsx, workbook, sheet_name, mixed_noise_matrix):
     som = MiniSom(1, 3, input_len=28, sigma=0.1, learning_rate=0.05)
-    som.train_random(mixed_noise_matrix, 2000) 
+    som.train_random(mixed_noise_matrix, 20000) 
     som_map = som.get_weights()
     som_map_1 = som_map[0,0] 
     som_map_2 = som_map[0,1]
