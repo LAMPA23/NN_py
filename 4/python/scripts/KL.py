@@ -11,6 +11,9 @@ def apply_KL(path_to_xlsx, workbook, sheet_name, mixed_noise_matrix, KM_centroid
 
     # Calculated result of network work 
     for row in range(675):
+        layers[0] = 0
+        layers[1] = 0
+        layers[2] = 0
         for column in range(28):
             layers[0] += KM_centroids[0][column] * mixed_noise_matrix[row,column]
             layers[1] += KM_centroids[1][column] * mixed_noise_matrix[row,column]

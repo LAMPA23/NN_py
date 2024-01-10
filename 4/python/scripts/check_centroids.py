@@ -72,3 +72,5 @@ def check_centroids(path_to_xlsx, workbook, sheet_name, centroids, noise_matrix,
 
     # Save data to Excel   
     workbook.save(path_to_xlsx)
+
+    return err[0] + err[1] + err[2]
