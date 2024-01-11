@@ -54,15 +54,19 @@ XTX_3 = get_XTX(path_o, workbook, 'XTX №3', vector_3)
 W = get_W(path_o, workbook, 'W', (XTX_1,XTX_2,XTX_3))
 
 
-
+# Роздляю матрицю зашумлених векторів на три частина
+# Кожна частину містить вектори, що відностяться до певного символу
 NM_1 = NM[0:225]
 NM_2 = NM[225:450]
 NM_3 = NM[450:675]
 
 
-restoration(path_o, workbook, 'R1', W, NM_1)
-restoration(path_o, workbook, 'R2', W, NM_2)
-restoration(path_o, workbook, 'R3', W, NM_3)
+# Відновлюю вектори образи та рахую кільість неправильно відновлених векторів.
+# Неправильно відновленим вектором вважається такий, в якого хочаб одна клітинка є неправильною
+# Дані будуть виведені на стрінці "Rх" (файл - outpit.xlsx)
+restoration(path_o, workbook, 'R1', W, NM_1, vector_1)
+restoration(path_o, workbook, 'R2', W, NM_2, vector_2)
+restoration(path_o, workbook, 'R3', W, NM_3, vector_3)
 
 
 # ------- Для звіту ----------- End
