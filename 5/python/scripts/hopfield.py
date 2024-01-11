@@ -47,13 +47,14 @@ def hopfield_recall(path_to_xlsx, workbook, sheet_name, W, NM_x, orig_vactor, it
 
             new_vector = np.dot(W,old_vector)
 
-            print_matrix_to_excle_with_color(sheet, cnt*10, iter_cnt*10+10, vector_to_matrix(new_vector))
+            print_matrix_to_excle_with_color(sheet, cnt*10, iter_cnt*7+7, vector_to_matrix(new_vector))
 
-            if not np.all(np.sign(new_vector) == NM_x[cnt]):
+            #old_vector = np.sign(new_vector)
+            old_vector = np.where(new_vector>0,1,-1)
+
+            if not np.all(old_vector == orig_vactor):
                 err_cnt += 1
             
-            old_vector = np.sign(new_vector)
-
-        print_err(sheet, iter_cnt*10+15, err_cnt)
+        print_err(sheet, iter_cnt*7+11, err_cnt)
    
     workbook.save(path_to_xlsx)

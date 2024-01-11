@@ -73,7 +73,16 @@ restoration(path_o, workbook, 'R1', W, NM_1, vector_1)
 restoration(path_o, workbook, 'R2', W, NM_2, vector_2)
 restoration(path_o, workbook, 'R3', W, NM_3, vector_3)
 
-hopfield_recall(path_o, workbook, 'H1', W, NM_1, vector_3, 5)
+
+
+# Тепер відновлюю зображення за допогою самотушки написаної непомережі Хопфілда
+# Математичний принцим такий ж само як в попередній функції, тільки тепер, вихідні данні -
+# - можуть в циклі передаватись на вхід. 
+# Таким чином, можна поступово покращувати якість відновлення.
+# Дані будуть виведені на стрінці "Нх" (файл - outpit.xlsx)
+hopfield_recall(path_o, workbook, 'H1', W, NM_1, vector_1, 3)
+hopfield_recall(path_o, workbook, 'H2', W, NM_2, vector_2, 3)
+hopfield_recall(path_o, workbook, 'H3', W, NM_3, vector_3, 3)
 
 # ------- Для звіту ----------- End
 
