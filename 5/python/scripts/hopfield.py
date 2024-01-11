@@ -1,53 +1,68 @@
-import numpy as np
+import numpy as np 
+import openpyxl
 
-def hopfield_train(patterns):
-    # Ваги для нейромережі
-    num_patterns, pattern_length = patterns.shape
-    weights = np.zeros((pattern_length, pattern_length))
 
-    for i in range(num_patterns):
-        # Використовуємо зовнішній добуток для оновлення ваг
-        weights += np.outer(patterns[i], patterns[i])
+def print_matrix_to_excle_with_color(sheet, offset_row, offset_column, M):
+     for row in range(M.shape[0]):
+        for column in range(M.shape[1]):
+            sheet.cell(row=row+1+offset_row,column=column+1+offset_column,value=M[row,column]).alignment = openpyxl.styles.Alignment(horizontal='center', vertical='center')
+            if M[row,column] >= 0:
+                sheet.cell(row=row+1+offset_row,column=column+1+offset_column,).fill = openpyxl.styles.PatternFill(start_color='FFFF00', end_color='FFFF00', fill_type='solid')
 
-    # Забезпечення нулевої діагоналі для ваг
-    np.fill_diagonal(weights, 0)
 
-    return weights
 
-def hopfield_recall(weights, patterns, max_iters=10):
-    # Ітеративно відновлюємо образи
-    num_patterns, pattern_length = patterns.shape
-    recalled_patterns = np.zeros_like(patterns)
+def vector_to_matrix(vector):
+    matrix = np.zeros((7,4))
+    for cnt in range(7):
+        matrix[cnt] = vector[cnt*4:(cnt+1)*4]
+    return matrix
 
-    for i in range(num_patterns):
-        recalled_patterns[i] = patterns[i]
 
-        for _ in range(max_iters):
-            # Активація нейронів за допомогою ваг та функції сигнум
-            recalled_patterns[i] = np.sign(np.dot(weights, recalled_patterns[i]))
 
-    return recalled_patterns
+def hopfield_recall(path_to_xlsx, workbook, sheet_name, W, NM_x, orig_vactor, iter_max):
 
-# Зчитуємо еталонні та спотворені образи з Excel-файлу
-reference_A = np.array([[1, -1, 1, -1, 1, -1]])  # Приклад, вам слід замінити це на свої дані
-reference_6 = np.array([[-1, 1, 1, 1, 1, -1]])
-reference_2 = np.array([[1, 1, 1, -1, -1, 1]])
+    sheet = workbook.create_sheet(title=sheet_name)
+    err_cnt = 0    
 
-test_A = np.array([[1, -1, -1, 1, -1, 1]])  # Приклад, вам слід замінити це на свої дані
-test_6 = np.array([[-1, 1, -1, -1, 1, 1]])
-test_2 = np.array([[1, 1, -1, -1, -1, -1]])
+    # Print noise vector
+    for cnt in range(225):
+        print_matrix_to_excle_with_color(sheet, cnt*10, 0, vector_to_matrix(NM_x[cnt]))
 
-# Об'єднуємо всі образи в один масив
-patterns = np.concatenate((reference_A, reference_6, reference_2, test_A, test_6, test_2), axis=0)
 
-# Тренуємо нейромережу
-weights = hopfield_train(patterns)
+    for iter_cnt in range(iter_max):
 
-# Відновлюємо образи
-recalled_A = hopfield_recall(weights, test_A)
-recalled_6 = hopfield_recall(weights, test_6)
-recalled_2 = hopfield_recall(weights, test_2)
+        for cnt in range(225):
+            restor_vector = (np.dot(W, restor_vector))
+            bin_restor_vector = np.where(restor_vector>0,1,-1)
+            if not np.all(bin_restor_vector == orig_vactor):
+                err_cnt += 1
 
-print("Recalled A:", recalled_A)
-print("Recalled 6:", recalled_6)
-print("Recalled 2:", recalled_2)
+    # for column_cnt in range(iter_max):
+
+    #     column_offset = column_cnt * 6
+
+    #     for row_cnt in range(225):
+
+    #         # Set param for some noise vector
+    #         noise_vector = NM_x[row_cnt]
+    #         restor_vector = noise_vector
+    #         row_offset = row_cnt * 9
+
+             
+            
+            
+            
+    #         restor_vector = (np.dot(W, restor_vector))
+    #         bin_restor_vector = np.where(restor_vector>0,1,-1)
+    #         if not np.all(bin_restor_vector == orig_vactor):
+    #             err_cnt += 1
+
+    #         for row in range(7):
+    #             for column in range(4):
+    #                 sheet.cell(row=row+1+row_offset,column=column+6,value=restor_vector[row*4+column]).alignment = openpyxl.styles.Alignment(horizontal='center', vertical='center')
+    #                 if restor_vector[row*4+column] >= 0:
+    #                     sheet.cell(row=row+1+row_offset,column=column+6).fill = openpyxl.styles.PatternFill(start_color='FFFF00', end_color='FFFF00', fill_type='solid')
+
+
+        
+    workbook.save(path_to_xlsx)

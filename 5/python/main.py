@@ -11,6 +11,7 @@ from scripts.create_noise_matrix import create_target_ans_for_noise_matrix
 from scripts.get_XTX import get_XTX
 from scripts.get_W import get_W
 from scripts.restoration import restoration
+from scripts.hopfield import hopfield_recall
 
 
 # Excel files paths
@@ -72,6 +73,7 @@ restoration(path_o, workbook, 'R1', W, NM_1, vector_1)
 restoration(path_o, workbook, 'R2', W, NM_2, vector_2)
 restoration(path_o, workbook, 'R3', W, NM_3, vector_3)
 
+hopfield_recall(path_o, workbook, 'H1', W, NM_1, vector_3, 5)
 
 # ------- Для звіту ----------- End
 
