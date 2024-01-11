@@ -55,14 +55,14 @@ W = get_W(path_o, workbook, 'W', (XTX_1,XTX_2,XTX_3))
 
 
 
-noise_vector_1 = NM[200]
-noise_vector_2 = NM[200 + 225]
-noise_vector_3 = NM[200 + 450]
+NM_1 = NM[0:225]
+NM_2 = NM[225:450]
+NM_3 = NM[450:675]
 
 
-restoration(path_o, workbook, 'R1', W, noise_vector_1)
-restoration(path_o, workbook, 'R2', W, noise_vector_2)
-restoration(path_o, workbook, 'R3', W, noise_vector_3)
+restoration(path_o, workbook, 'R1', W, NM_1)
+restoration(path_o, workbook, 'R2', W, NM_2)
+restoration(path_o, workbook, 'R3', W, NM_3)
 
 
 # ------- Для звіту ----------- End
