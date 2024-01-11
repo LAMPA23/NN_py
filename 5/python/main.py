@@ -1,11 +1,10 @@
+# Outside scripts
 import numpy as np 
 import openpyxl
 import os
 import sys
 
 # My scripts
-
-
 from scripts.get_symbols import get_symbols
 from scripts.create_noise_matrix import create_noise_matrix
 from scripts.create_noise_matrix import create_target_ans_for_noise_matrix
@@ -14,13 +13,18 @@ from scripts.get_W import get_W
 from scripts.restoration import restoration
 
 
+# Excel files paths
 path_i = 'xlsx\input.xlsx'
 path_o = 'xlsx\output.xlsx'
 
-
+# Delete old output.xlsx file
 os.system(f'del "{path_o}"')
 
+# Excel preparation
 workbook = openpyxl.Workbook()
+
+
+
 
 # ------- Для звіту ----------- Start
 
@@ -30,7 +34,7 @@ vector_1, vector_2, vector_3  = get_symbols(path_i)
 
 
 # Створюю матрицю, що містить оригінальні та зашумлені вектори.
-# По 254 зашумлені вектори на символ.
+# По 254 зашумлені вектори на символ + 1 оригінал. Це 225 на символ. На 3 символи це 675 векторів.
 # Дані будуть виведені на стрінці "NM" (файл - outpit.xlsx)
 NM = create_noise_matrix(path_o, workbook, 'NM', (vector_1,vector_2,vector_3))
 
@@ -70,3 +74,4 @@ restoration(path_o, workbook, 'R3', W, NM_3, vector_3)
 
 
 # ------- Для звіту ----------- End
+
