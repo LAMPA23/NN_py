@@ -1,3 +1,5 @@
+print("SubmoduleTest")
+
 # Outsiders libraris 
 import numpy as np 
 import random as rd
